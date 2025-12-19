@@ -18,7 +18,7 @@ const app = express();
 
 //morgan
 if (process.env.NODE_ENV !== "production") {
-  app.use(morgan("dev"));
+    app.use(morgan("dev"));
 }
 
 //helmet
@@ -41,35 +41,35 @@ app.use(compression());
 
 //file upload
 app.use(
-  fileUpload({
-    useTempFiles: true,
-  })
+    fileUpload({
+        useTempFiles: true,
+    })
 );
 
 //cors
 app.use(
-  cors({
-    origin: "https://whatsapp-clone-frontend-liart.vercel.app",
-    credentials: true,
-  })
+    cors({
+        origin: "https://internal-it-employee.vercel.app",
+        credentials: true,
+    })
 );
 
 //api v1 routes
 app.use("/api/v1", routes);
 
 app.use(async (req, res, next) => {
-  next(createHttpError.NotFound("This route does not exist."));
+    next(createHttpError.NotFound("This route does not exist."));
 });
 
 //error handling
 app.use(async (err, req, res, next) => {
-  res.status(err.status || 500);
-  res.send({
-    error: {
-      status: err.status || 500,
-      message: err.message,
-    },
-  });
+    res.status(err.status || 500);
+    res.send({
+        error: {
+            status: err.status || 500,
+            message: err.message,
+        },
+    });
 });
 
 export default app;
